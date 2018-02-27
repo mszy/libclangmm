@@ -13,23 +13,17 @@
 # - LIBCLANG_KNOWN_LLVM_VERSIONS
 #               Known LLVM release numbers.
 
-# most recent versions come first
-set(LIBCLANG_KNOWN_LLVM_VERSIONS 6.0.0 6.0 6
-  5.0.1 5.0.0 5.0 5
-  4.0.1
-  4.0.0_1 4.0.0 4.0 4
-  3.9.1
-  3.9.0 3.9
-  3.8.1
-  3.8.0 3.8
-  3.7.1
-  3.7
-  3.6.2
-  3.6.1
-  3.6
-  3.5.1
-  3.5.0 3.5
-  3.4.2 3.4.1 3.4 3.3 3.2 3.1)
+# Search all LLVM Version from version major 3 to major 9 
+set(LIBCLANG_KNOWN_LLVM_VERSIONS)
+foreach(llvm_major RANGE 9 3)
+  foreach(llvm_minor RANGE 9 0)
+    foreach(llvm_build RANGE 4 0)
+      list(APPEND LIBCLANG_KNOWN_LLVM_VERSIONS ${llvm_major})
+      list(APPEND LIBCLANG_KNOWN_LLVM_VERSIONS ${llvm_major}.${llvm_minor})
+      list(APPEND LIBCLANG_KNOWN_LLVM_VERSIONS ${llvm_major}.${llvm_minor}.${llvm_build})
+    endforeach()
+  endforeach()
+endforeach()
 
 set(libclang_llvm_header_search_paths)
 set(libclang_llvm_lib_search_paths
